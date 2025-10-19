@@ -1,16 +1,92 @@
-# React + Vite
+# 🌮 Sabores de Chile - Sistema de Pedidos Online
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Sistema web de pedidos para restaurante de comida chilena, desarrollado con React y Vite.
 
-Currently, two official plugins are available:
+## 🚀 Demo en Vivo
+👉 [Ver sitio web](https://serobless.github.io/sabores-chile-react/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 📋 Descripción
+Plataforma de comercio electrónico para restaurante chileno que permite a los usuarios explorar el menú, agregar productos al carrito y gestionar pedidos.
 
-## React Compiler
+## 🛠️ Tecnologías Utilizadas
+- **React 18** - Biblioteca de JavaScript para interfaces de usuario
+- **Vite** - Build tool y dev server
+- **React Router DOM** - Navegación entre páginas
+- **Bootstrap** - Framework CSS
+- **CSS3** - Estilos personalizados
+- **JavaScript ES6+** - Lógica de la aplicación
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## ✨ Características
+- ✅ Catálogo de productos con categorías
+- ✅ Carrito de compras funcional
+- ✅ Sistema de autenticación de usuarios
+- ✅ Panel de administración
+- ✅ Gestión de pedidos
+- ✅ Diseño responsivo
+- 🔄 Testing con Jasmine/Karma (en desarrollo)
 
-## Expanding the ESLint configuration
+## 📦 Instalación Local
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Prerrequisitos
+- Node.js (versión 14 o superior)
+- npm o yarn
+
+### Pasos
+
+1. Clonar el repositorio
+```bash
+git clone https://github.com/serobless/sabores-chile-react.git
+```
+
+2. Instalar dependencias
+```bash
+cd sabores-chile-react
+npm install
+```
+
+3. Ejecutar en modo desarrollo
+```bash
+npm run dev
+```
+
+4. Abrir en el navegador
+```
+http://localhost:5173
+```
+
+## 🏗️ Estructura del Proyecto
+```
+sabores-chile-react/
+├── public/
+│   └── data/
+│       └── productos.json
+├── src/
+│   ├── assets/
+│   ├── components/
+│   ├── context/
+│   ├── pages/
+│   ├── services/
+│   └── styles/
+├── package.json
+└── vite.config.js
+```
+
+## 🚀 Scripts Disponibles
+
+- `npm run dev` - Inicia el servidor de desarrollo
+- `npm run build` - Crea el build de producción
+- `npm run preview` - Previsualiza el build
+- `npm run deploy` - Despliega a GitHub Pages
+
+## 📄 Licencia
+Este proyecto fue desarrollado como trabajo académico.
+
+## 👨‍💻 Autores
+**Sebastian Robles**
+- GitHub: [@serobless](https://github.com/serobless)
+**Maximiliano Diaz**
+- GitHub: [@maxijdfmy1](https://github.com/maxijdfmy1)
+
+## 📞 Contacto
+Para consultas o sugerencias, por favor abre un issue en este repositorio.
+
