@@ -11,32 +11,32 @@ const Home = () => {
   // Imágenes del carrusel
   const imagenesCarrusel = [
     {
-      src: '/src/assets/imagenes/norte1.jpg',
+      src: '/imagenes/norte1.jpg',
       titulo: 'Sabores del Norte',
       subtitulo: 'Descubre la gastronomía del desierto chileno'
     },
     {
-      src: '/src/assets/imagenes/costanera.jpg',
+      src: '/imagenes/costanera.jpg',
       titulo: 'Santiago, Corazón de Chile',
       subtitulo: 'Comida típica y rápida en la capital'
     },
     {
-      src: '/src/assets/imagenes/valparaiso.jpg',
+      src: '/imagenes/valparaiso.jpg',
       titulo: 'Sabores del Puerto',
       subtitulo: 'La esencia marinera de Valparaíso'
     },
     {
-      src: '/src/assets/imagenes/cordillera.jpg',
+      src: '/imagenes/cordillera.jpg',
       titulo: 'De la Cordillera a tu Mesa',
       subtitulo: 'Ingredientes frescos de la montaña'
     },
     {
-      src: '/src/assets/imagenes/rapanui.jpg',
+      src: '/imagenes/rapanui.jpg',
       titulo: 'Rapa Nui',
       subtitulo: 'Sabores únicos de Nuestro País'
     },
     {
-      src: '/src/assets/imagenes/torresdelpaine.jpg',
+      src: '/imagenes/torresdelpaine.jpg',
       titulo: 'Patagonia Chilena',
       subtitulo: 'Los sabores del fin del mundo'
     }
