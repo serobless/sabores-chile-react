@@ -83,7 +83,7 @@ const ModalProducto = ({ show, onClose, onSave, productoEditar = null }) => {
       fechaCreacion: productoEditar ? productoEditar.fechaCreacion : new Date().toISOString(),
       fechaActualizacion: new Date().toISOString(),
       ultimoEditor: usuario.email.split('@')[0],
-      imagen: `/src/assets/imagenes/placeholder.jpg` // Placeholder por ahora
+      imagen: "/sabores-chile-react/imagenes/placeholder.jpg" // Placeholder por ahora
     };
 
     onSave(productoGuardar);
