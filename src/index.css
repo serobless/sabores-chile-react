@@ -1,0 +1,94 @@
+:root {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.hover-shadow {
+  transition: all 0.3s ease;
+}
+
+.hover-shadow:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2) !important;
+}
+
+.transition {
+  transition: all 0.3s ease;
+}
+
+.sticky-top {
+  position: sticky;
+  top: 0;
+  z-index: 1020;
+}
+
+
+/* Toast animations */
+.toast {
+  animation: slideInRight 0.3s ease-out;
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Dropdown styles */
+.dropdown-menu {
+  min-width: 200px;
+}
+
+.dropdown-item-text {
+  padding: 0.5rem 1rem;
+  display: block;
+}
+
+/* Navbar responsive improvements */
+@media (max-width: 991px) {
+  .navbar-nav .btn {
+    width: 100%;
+    margin: 0.5rem 0;
+  }
+  
+  .navbar-nav .dropdown-menu {
+    position: static !important;
+    transform: none !important;
+    box-shadow: none;
+    border: none;
+    background: #f8f9fa;
+    margin-top: 0.5rem;
+  }
+}
+
+
+
+/* Carrusel transitions */
+.transition-opacity {
+  transition: opacity 1s ease-in-out;
+}
+
+/* Hover effects para botones del carrusel */
+.btn-dark:hover {
+  opacity: 1 !important;
+}
+
+/* Responsive carrusel */
+@media (max-width: 768px) {
+  .display-3 {
+    font-size: 2rem !important;
+  }
+  
+  .lead {
+    font-size: 1.1rem !important;
+  }
+}
