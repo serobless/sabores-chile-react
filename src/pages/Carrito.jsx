@@ -7,7 +7,9 @@ const Carrito = () => {
     eliminarDelCarrito, 
     actualizarCantidad, 
     vaciarCarrito, 
-    obtenerTotal 
+    obtenerTotal,
+    obtenerSubtotal,
+    obtenerIVA
   } = useCarrito();
 
   if (carrito.length === 0) {
@@ -102,8 +104,13 @@ const Carrito = () => {
               <h4 className="card-title mb-4">Resumen del Pedido</h4>
               
               <div className="d-flex justify-content-between mb-2">
-                <span>Subtotal:</span>
-                <span>${obtenerTotal().toLocaleString('es-CL')}</span>
+                <span>Subtotal (Neto):</span>
+                <span>${obtenerSubtotal().toLocaleString('es-CL')}</span>
+              </div>
+              
+              <div className="d-flex justify-content-between mb-2">
+                <span>IVA (19%):</span>
+                <span>${obtenerIVA().toLocaleString('es-CL')}</span>
               </div>
               
               <div className="d-flex justify-content-between mb-2">

@@ -43,6 +43,9 @@ const CheckoutExito = () => {
       </div>
     );
   }
+  // Calcular subtotal e IVA
+  const subtotal = Math.round(pedidoCreado.total / 1.19);
+  const iva = pedidoCreado.total - subtotal;
 
   return (
     <div className="container py-5">
@@ -116,6 +119,20 @@ const CheckoutExito = () => {
                 </div>
 
                 <hr className="my-3"/>
+
+                <hr className="my-3"/>
+
+                {/* Desglose de pago */}
+                <div className="mb-2">
+                  <div className="d-flex justify-content-between text-muted small mb-1">
+                    <span>Subtotal (Neto):</span>
+                    <span>${subtotal.toLocaleString('es-CL')}</span>
+                  </div>
+                  <div className="d-flex justify-content-between text-muted small mb-2">
+                    <span>IVA (19%):</span>
+                    <span>${iva.toLocaleString('es-CL')}</span>
+                  </div>
+                </div>
 
                 <div className="d-flex justify-content-between align-items-center">
                   <strong className="fs-5">Total Pagado:</strong>

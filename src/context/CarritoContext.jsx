@@ -63,8 +63,22 @@ export const CarritoProvider = ({ children }) => {
     setCarrito([]);
   };
 
+  // Total con IVA incluido (precio final)
   const obtenerTotal = () => {
     return carrito.reduce((total, item) => total + (item.precio * item.cantidad), 0);
+  };
+
+  // Subtotal sin IVA (precio neto)
+  const obtenerSubtotal = () => {
+    const total = obtenerTotal();
+    return Math.round(total / 1.19);
+  };
+
+  // IVA (19%)
+  const obtenerIVA = () => {
+    const total = obtenerTotal();
+    const subtotal = obtenerSubtotal();
+    return total - subtotal;
   };
 
   const obtenerCantidadTotal = () => {
@@ -78,6 +92,8 @@ export const CarritoProvider = ({ children }) => {
     actualizarCantidad,
     vaciarCarrito,
     obtenerTotal,
+    obtenerSubtotal,
+    obtenerIVA,
     obtenerCantidadTotal
   };
 

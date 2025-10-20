@@ -4,7 +4,7 @@ import { useCarrito } from '../context/CarritoContext';
 
 const Checkout = () => {
   const navigate = useNavigate();
-  const { carrito, obtenerTotal, vaciarCarrito } = useCarrito();
+  const { carrito, obtenerTotal, obtenerSubtotal, obtenerIVA } = useCarrito();
 
   // Estados del formulario
   const [nombre, setNombre] = useState('');
@@ -64,21 +64,43 @@ const Checkout = () => {
     // Preparar dirección completa
     const direccionCompleta = `${calle}, ${comuna}, ${region}`;
 
-    // Navegar a página de éxito con todos los datos
-    navigate('/checkout/exito', {
-      state: {
-        datosCliente: {
-          nombre: `${nombre} ${apellido}`,
-          email,
-          telefono,
-          direccion: direccionCompleta,
-          indicaciones,
-          metodoPago
-        },
-        items: carrito,
-        total: obtenerTotal()
-      }
-    });
+    // Simulación de pago con 70% éxito / 30% error
+    const pagoExitoso = Math.random() < 0.7; // 70% probabilidad de éxito
+
+    if (pagoExitoso) {
+      // Navegar a página de éxito con todos los datos
+      navigate('/checkout/exito', {
+        state: {
+          datosCliente: {
+            nombre: `${nombre} ${apellido}`,
+            email,
+            telefono,
+            direccion: direccionCompleta,
+            indicaciones,
+            metodoPago
+          },
+          items: carrito,
+          total: obtenerTotal()
+        }
+      });
+    } else {
+      // Navegar a página de error
+      navigate('/checkout/error', {
+        state: {
+          formData: {
+            nombre,
+            apellido,
+            email,
+            telefono,
+            calle,
+            region,
+            comuna,
+            indicaciones,
+            metodoPago
+          }
+        }
+      });
+    }
   };
 
   // Si el carrito está vacío
@@ -367,9 +389,15 @@ const Checkout = () => {
               {/* Total */}
               <div className="border-top pt-3">
                 <div className="d-flex justify-content-between align-items-center mb-2">
-                  <span className="text-muted">Subtotal:</span>
+                  <span className="text-muted">Subtotal (Neto):</span>
                   <span className="fw-semibold">
-                    ${obtenerTotal().toLocaleString('es-CL')}
+                    ${obtenerSubtotal().toLocaleString('es-CL')}
+                  </span>
+                </div>
+                <div className="d-flex justify-content-between align-items-center mb-2">
+                  <span className="text-muted">IVA (19%):</span>
+                  <span className="fw-semibold">
+                    ${obtenerIVA().toLocaleString('es-CL')}
                   </span>
                 </div>
                 <div className="d-flex justify-content-between align-items-center mb-2">
