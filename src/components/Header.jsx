@@ -16,13 +16,8 @@ const Header = () => {
     <header className="bg-white shadow-sm sticky-top">
       <nav className="navbar navbar-expand-lg navbar-light container">
         <Link className="navbar-brand fw-bold text-primary fs-3" to="/">
-            <img 
-              src="/imagenes/logo sin texcto.png" // <--- ¡USA EL ARCHIVO 'logo.png'!
-              alt="Logo de la Aplicación"
-              style={{ height: '30px', marginRight: '8px' }}
-            />
-            Sabores de Chile
-          </Link>
+          🇨🇱 Sabores de Chile
+        </Link>
         
         <button 
           className="navbar-toggler" 
