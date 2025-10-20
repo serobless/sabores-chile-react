@@ -697,7 +697,7 @@ let productosData = [
     descripcion: "Pizza artesanal con salsa de tomate, mozzarella, orégano y jamón, horneada en piedra.",
     precio: 8500,
     categoria: "rapida",
-    imagen: `${import.meta.env.BASE_URL}imagenes/lomopobre.jpg`,
+    imagen: `${import.meta.env.BASE_URL}imagenes/pizza napolitana.jpg`,
     emoji: "🍕",
     autor: "admin",
     fechaCreacion: "2024-10-07",
