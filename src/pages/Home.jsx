@@ -78,22 +78,22 @@ const Home = () => {
               zIndex: index === slideActual ? 1 : 0
             }}
           >
-            {/* Imagen de fondo */}
-            <div
-              className="w-100 h-100"
-              style={{
-                backgroundImage: `url(${imagen.src})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat'
-              }}
-            />
+           {/* Imagen de fondo con efecto hover */}
+<div
+  className="w-100 h-100 carousel-image"
+  style={{
+    backgroundImage: `url(${imagen.src})`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat'
+  }}
+/>
 
-            {/* Overlay oscuro */}
-            <div
-              className="position-absolute top-0 start-0 w-100 h-100"
-              style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)', zIndex: 1 }}
-            />
+            {/* Overlay oscuro que se aclara en hover */}
+<div
+  className="position-absolute top-0 start-0 w-100 h-100 carousel-overlay"
+  style={{ backgroundColor: 'rgba(0, 0, 0, 0.4)', zIndex: 1 }}
+/>
 
             {/* Contenido del slide */}
             <div

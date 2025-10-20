@@ -44,3 +44,26 @@
 }
 
 
+/* ===================================
+   EFECTO HOVER CARRUSEL
+   =================================== */
+
+/* Efecto zoom suave en la imagen */
+.carousel-image {
+  transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+/* Cuando haces hover, la imagen hace zoom */
+section:hover .carousel-image {
+  transform: scale(1.1);
+}
+
+/* El overlay se aclara en hover */
+.carousel-overlay {
+  transition: background-color 0.5s ease;
+}
+
+section:hover .carousel-overlay {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+}
