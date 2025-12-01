@@ -1,5 +1,5 @@
-import { createContext, useContext, useState } from 'react';
-
+import { createContext, useContext, useState, useEffect } from 'react';
+import { v4 as uuidv4 } from 'uuid'; // Asegúrate de tener uuid instalado: npm install uuid
 const PedidosContext = createContext();
 
 export const usePedidos = () => {
@@ -11,69 +11,61 @@ export const usePedidos = () => {
 };
 
 export const PedidosProvider = ({ children }) => {
-  const [pedidos, setPedidos] = useState([]);
+  const [pedidos, setPedidos] = useState(() => {
+    const pedidosGuardados = localStorage.getItem('pedidos');
+    return pedidosGuardados ? JSON.parse(pedidosGuardados) : [];
+  });
+
+  useEffect(() => {
+    localStorage.setItem('pedidos', JSON.stringify(pedidos));
+  }, [pedidos]);
 
   // Crear un nuevo pedido
-  const crearPedido = (carritoItems, datosCliente, total) => {
+  const crearPedido = (productos, datosCliente, total) => {
     const nuevoPedido = {
-      id: `ORD-${Date.now()}`,
+      id: uuidv4(),
       fecha: new Date().toISOString(),
-      estado: 'pendiente', // pendiente, en_proceso, completado, cancelado
-      productos: carritoItems.map(item => ({
-        id: item.id,
-        nombre: item.nombre,
-        precio: item.precio,
-        cantidad: item.cantidad,
-        emoji: item.emoji
-      })),
-      datosCliente: {
-        nombre: datosCliente.nombre || 'Invitado',
-        email: datosCliente.email || '',
-        telefono: datosCliente.telefono || '',
-        direccion: datosCliente.direccion || ''
-      },
-      total: total,
-      metodoPago: datosCliente.metodoPago || 'efectivo'
+      productos: [...productos],
+      datosCliente,
+      total,
+      // Estado inicial depende de si es un pedido de mesa o no
+      estado: datosCliente.numeroMesa ? 'pendiente_aprobacion' : 'pendiente_preparacion',
+      metodoPago: datosCliente.metodoPago
     };
-
-    setPedidos(prev => [nuevoPedido, ...prev]);
+    setPedidos(prevPedidos => [...prevPedidos, nuevoPedido]);
     return nuevoPedido;
   };
 
-  // Obtener pedidos del usuario actual
-  const obtenerPedidosUsuario = (email) => {
-    if (!email) return pedidos;
-    return pedidos.filter(p => p.datosCliente.email === email);
+  const aprobarPedido = (pedidoId) => {
+    setPedidos(pedidos.map(p => 
+      p.id === pedidoId ? { ...p, estado: 'en_preparacion' } : p
+    ));
   };
 
-  // Actualizar estado del pedido
-  const actualizarEstadoPedido = (pedidoId, nuevoEstado) => {
-    setPedidos(prev => 
-      prev.map(p => 
-        p.id === pedidoId 
-          ? { ...p, estado: nuevoEstado, fechaActualizacion: new Date().toISOString() }
-          : p
-      )
-    );
+  const entregarPedido = (pedidoId) => {
+    setPedidos(pedidos.map(p => 
+      p.id === pedidoId ? { ...p, estado: 'entregado' } : p
+    ));
+  };
+
+  const despacharPedido = (pedidoId) => {
+    setPedidos(pedidos.map(p =>
+      p.id === pedidoId ? { ...p, estado: 'en_camino' } : p
+    ));
   };
 
   // Cancelar pedido
   const cancelarPedido = (pedidoId) => {
-    actualizarEstadoPedido(pedidoId, 'cancelado');
-  };
-
-  // Obtener pedido por ID
-  const obtenerPedidoPorId = (pedidoId) => {
-    return pedidos.find(p => p.id === pedidoId);
+    setPedidos(pedidos.map(p => p.id === pedidoId ? { ...p, estado: 'cancelado' } : p));
   };
 
   const value = {
     pedidos,
     crearPedido,
-    obtenerPedidosUsuario,
-    actualizarEstadoPedido,
     cancelarPedido,
-    obtenerPedidoPorId
+    aprobarPedido,
+    entregarPedido,
+    despacharPedido,
   };
 
   return (

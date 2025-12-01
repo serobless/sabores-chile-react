@@ -70,6 +70,15 @@ const Header = () => {
               </li>
             )}
 
+            {/* Mostrar Panel Mesero si es mesero */}
+            {estaAutenticado && usuario?.rol === 'mesero' && (
+              <li className="nav-item">
+                <Link className="nav-link text-primary fw-bold" to="/mesero">
+                  🛎️ Panel Mesero
+                </Link>
+              </li>
+            )}
+
             <li className="nav-item ms-3">
               <Link 
                 className="btn btn-danger position-relative" 
@@ -115,6 +124,7 @@ const Header = () => {
                       <small className="text-muted">
                         {usuario.rol === 'administrador' && '🔧 Administrador'}
                         {usuario.rol === 'empleado' && '📋 Empleado'}
+                        {usuario.rol === 'mesero' && '🛎️ Mesero'}
                         {usuario.rol === 'cliente' && '👤 Cliente'}
                       </small>
                     </span>

@@ -30,6 +30,16 @@ let usuariosData = [
     telefono: "+56911223344",
     direccion: "Av. Apoquindo 789, Las Condes",
     fechaRegistro: "2024-01-10T09:00:00Z"
+  },
+  {
+    id: 4,
+    nombre: "Juan Mesero",
+    email: "mesero@saboresdechile.cl",
+    password: "mesero123",
+    rol: "mesero",
+    telefono: "+56955667788",
+    direccion: "Restaurante Sabores de Chile",
+    fechaRegistro: "2024-03-01T11:00:00Z"
   }
 ];
 
@@ -58,7 +68,7 @@ export const registrarUsuario = (datosUsuario) => {
   }
   
   const nuevoUsuario = {
-    id: usuariosData.length + 1,
+    id: Math.max(...usuariosData.map(u => u.id)) + 1, // Para evitar IDs duplicados
     ...datosUsuario,
     rol: "cliente", // Los nuevos usuarios son clientes por defecto
     fechaRegistro: new Date().toISOString()

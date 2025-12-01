@@ -73,7 +73,7 @@ const CheckoutExito = () => {
               {/* Número de pedido */}
               <div className="alert alert-success mb-4 shadow-sm">
                 <h5 className="mb-2">📋 Número de Pedido:</h5>
-                <h3 className="fw-bold mb-0 text-success">{pedidoCreado.id}</h3>
+                <h3 className="fw-bold mb-0 text-success font-monospace">{pedidoCreado.id.substring(0, 8).toUpperCase()}</h3>
                 <small className="text-muted d-block mt-2">
                   Guarda este número para hacer seguimiento
                 </small>
@@ -110,6 +110,13 @@ const CheckoutExito = () => {
                     </div>
                   )}
 
+                  {pedidoCreado.datosCliente.numeroMesa && (
+                    <div className="col-md-6 mb-3">
+                      <strong>🛎️ Mesa:</strong>
+                      <p className="mb-0 text-muted fw-bold fs-5">{pedidoCreado.datosCliente.numeroMesa}</p>
+                    </div>
+                  )}
+
                   <div className="col-12 mb-3">
                     <strong>💳 Método de Pago:</strong>
                     <p className="mb-0 text-muted">
@@ -117,8 +124,6 @@ const CheckoutExito = () => {
                     </p>
                   </div>
                 </div>
-
-                <hr className="my-3"/>
 
                 <hr className="my-3"/>
 
@@ -169,20 +174,33 @@ const CheckoutExito = () => {
 
               {/* Estado */}
               <div className="mb-4">
-                <span className="badge bg-warning text-dark fs-5 px-4 py-3 shadow-sm">
-                  ⏳ Estado: Pendiente de Preparación
-                </span>
+                {pedidoCreado.datosCliente.numeroMesa ? (
+                  <span className="badge bg-info text-dark fs-5 px-4 py-3 shadow-sm">
+                    ⏳ Estado: Pendiente de Aprobación por Mesero
+                  </span>
+                ) : (
+                  <span className="badge bg-warning text-dark fs-5 px-4 py-3 shadow-sm">
+                    ⏳ Estado: Pendiente de Preparación
+                  </span>
+                )}
               </div>
 
               {/* Información adicional */}
               <div className="alert alert-info shadow-sm">
                 <h6 className="fw-bold mb-2">ℹ️ Próximos Pasos:</h6>
-                <p className="mb-0 small">
-                  • Tu pedido está siendo procesado<br/>
-                  • Recibirás actualizaciones del estado<br/>
-                  • Puedes hacer seguimiento en "Mis Pedidos"<br/>
-                  • Tiempo estimado de preparación: 30-45 minutos
-                </p>
+                {pedidoCreado.datosCliente.numeroMesa ? (
+                  <p className="mb-0 small">
+                    • Un mesero se acercará a tu mesa para confirmar el pedido y el pago.<br/>
+                    • Una vez aprobado, tu pedido pasará a cocina.<br/>
+                    • ¡Gracias por tu paciencia!
+                  </p>
+                ) : (
+                  <p className="mb-0 small">
+                    • Tu pedido está siendo procesado para el despacho.<br/>
+                    • Recibirás actualizaciones del estado.<br/>
+                    • Tiempo estimado de entrega: 30-45 minutos.
+                  </p>
+                )}
               </div>
 
               {/* Botones de acción */}

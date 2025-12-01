@@ -19,6 +19,7 @@ import Checkout from './pages/Checkout';
 import CheckoutExito from './pages/CheckoutExito';
 import CheckoutError from './pages/CheckoutError';
 import MisPedidos from './pages/MisPedidos';
+import Mesero from './pages/Mesero';
 
 import './styles/animations.css';
 import './App.css';
@@ -93,6 +94,16 @@ function App() {
                   element={
                     <RutaProtegida rolesPermitidos={['administrador']}>
                       <Admin />
+                    </RutaProtegida>
+                  } 
+                />
+
+                {/* Ruta solo para meseros y administradores */}
+                <Route 
+                  path="/mesero" 
+                  element={
+                    <RutaProtegida rolesPermitidos={['mesero', 'administrador']}>
+                      <Mesero />
                     </RutaProtegida>
                   } 
                 />
