@@ -30,18 +30,17 @@ jobs:
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
-      - name: Deploy to EC2
+      - name: Copy build folder to EC2
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
           username: ${{ secrets.EC2_USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
-          source: "dist/*"
-          target: "/usr/share/nginx/html"
-          strip_components: 1
+          source: "dist"
+          target: "/home/${{ secrets.EC2_USERNAME }}"
 
-      - name: Restart Nginx
+      - name: Deploy files and restart Nginx
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
@@ -49,4 +48,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
+            sudo rm -rf /usr/share/nginx/html/*
+            sudo mv /home/${{ secrets.EC2_USERNAME }}/dist/* /usr/share/nginx/html/
+            sudo rm -rf /home/${{ secrets.EC2_USERNAME }}/dist
             sudo systemctl restart nginx
