@@ -1,7 +1,5 @@
-# Nombre del flujo de trabajo
-name: Deploy Frontend to EC2
+name: Deploy Frontend to AWS EC2
 
-# Se activa cada vez que haces un push a la rama 'main'
 on:
   push:
     branches:
@@ -9,52 +7,46 @@ on:
 
 jobs:
   deploy:
-    # Se ejecuta en un servidor virtual de Ubuntu
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Clona tu repositorio en el servidor virtual
-      - name: Checkout code
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      # 2. Configura el entorno de Node.js
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Puedes ajustar la versión de Node si es necesario
+          node-version: "20"
+          cache: "npm"
 
-      # 3. Instala las dependencias del proyecto
       - name: Install dependencies
         run: npm install
 
-      # 4. Instala UUID (por si no está guardado en package.json)
-      - name: Install UUID
+      - name: Install uuid
         run: npm install uuid
 
-      # 5. Construye la aplicación de React
       - name: Build project
         run: npm run build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
-      # 6. Copia la carpeta 'dist' a tu EC2
-      - name: Copy files via SCP
+      - name: Deploy to EC2
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
-          source: "dist"
-          target: "/home/${{ secrets.EC2_USER }}"
+          source: "dist/*"
+          target: "/usr/share/nginx/html"
+          strip_components: 1
 
-      # 7. Mueve los archivos y limpia en EC2
-      - name: Execute remote commands
+      - name: Restart Nginx
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_SSH_KEY }}
           port: 22
           script: |
-            sudo rm -rf /usr/share/nginx/html/*
-            sudo cp -r /home/${{ secrets.EC2_USER }}/dist/* /usr/share/nginx/html/
-            echo "Despliegue del frontend completado!"
+            sudo systemctl restart nginx
