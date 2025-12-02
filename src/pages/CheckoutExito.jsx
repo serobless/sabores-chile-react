@@ -44,7 +44,7 @@ const CheckoutExito = () => {
     );
   }
   // Calcular subtotal e IVA
-  const subtotal = Math.round(pedidoCreado.total / 1.19);
+  const subtotal = Math.round(pedidoCreado.total / 1.19); 
   const iva = pedidoCreado.total - subtotal;
 
   return (
